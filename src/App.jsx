@@ -5,9 +5,13 @@ import Keyboard from "./component/keyboard";
 
 function App() {
   const [currentWord, setCurrentWord] = useState("react");
-  const [lives, setLives] = useState(9);
+
   const [gameStatus, setGameStatus] = useState("win");
   const [guessedLetters, setGuessedLetters] = useState([]);
+
+  const wrongGuessedCount = guessedLetters.filter((letter) =>{
+    return !currentWord.includes(letter);
+  }).length;
 
   const currentWordElement = currentWord.split("").map((letter, index) => (
     <span key={index} className="letter-box">
@@ -16,7 +20,7 @@ function App() {
   ));
 
   const livesStatusElement = Array.from({ length: 9 }).map((_, index) => (
-    <Heart key={index} broken={false} />
+    <Heart key={index} broken={index < wrongGuessedCount} />
   ));
 
   const addLetterHandler = (letter) => {

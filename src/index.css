@@ -73,6 +73,10 @@ section.life-status-section{
     width: auto;
 }
 
+.heart.broken img {
+    transform: translateX(-96px);
+}
+
 section.current-word {
     display: flex;
     justify-content: center;
