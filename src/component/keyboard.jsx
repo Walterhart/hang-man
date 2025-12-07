@@ -18,7 +18,7 @@ export default function Keyboard(props) {
       <button
         key={letter}
         className={className}
-        disabled={isGuessed}
+        disabled={isGuessed || props.isGameOver}
         onClick={() => props.onLetterClick(letter)}
       >
         {letter.toUpperCase()}

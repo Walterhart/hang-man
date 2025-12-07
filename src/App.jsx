@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import Header from "./component/Header";
 import Heart from "./component/Heart";
 import Keyboard from "./component/keyboard";
+import clsx from "clsx";
+import RenderGameStatus from "./component/RenderGameStatus.jsx";
 
 function App() {
   // State
   const [currentWord, setCurrentWord] = useState("react");
-  const [gameStatus, setGameStatus] = useState("win");
   const [guessedLetters, setGuessedLetters] = useState([]);
 
   // Game config
@@ -21,6 +22,9 @@ function App() {
   }).length;
   const isGameLost = wrongGuessedCount >= NUMBER_OF_HEARTS;
   const isGameOver = isGameWon || isGameLost;
+  const lastGuessedLetter = guessedLetters[guessedLetters.length - 1];
+  const isLastGuessIncorrect = lastGuessedLetter && !currentWord.includes(lastGuessedLetter)
+
 
   const currentWordElement = currentWord.split("").map((letter, index) => (
     <span key={index} className="letter-box">
@@ -39,14 +43,11 @@ function App() {
         : [...prevLetters, letter];
     });
   };
-
+  
   return (
     <main>
       <Header numberOfHearts={NUMBER_OF_HEARTS} />
-      <section className="game-status">
-        <h3>You Win</h3>
-        <p>Good job!</p>
-      </section>
+      <RenderGameStatus isGameOver={isGameOver} isGameWon={isGameWon} isGameLost={isGameLost} isLastGuessIncorrect={isLastGuessIncorrect} />
       <section className="life-status-section">{livesStatusElement}</section>
       <section className="current-word">{currentWordElement}</section>
       <section className="keyboard-section">
@@ -54,6 +55,7 @@ function App() {
           onLetterClick={addLetterHandler}
           guessedLetters={guessedLetters}
           currentWord={currentWord}
+          isGameOver={isGameOver}
         />
       </section>
       <section className="new-game-btn-section">
