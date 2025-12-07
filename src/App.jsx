@@ -3,7 +3,6 @@ import Header from "./component/Header";
 import Heart from "./component/Heart";
 import Keyboard from "./component/keyboard";
 
-
 function App() {
   const [currentWord, setCurrentWord] = useState("react");
   const [lives, setLives] = useState(9);
@@ -12,7 +11,7 @@ function App() {
 
   const currentWordElement = currentWord.split("").map((letter, index) => (
     <span key={index} className="letter-box">
-      {letter.toLocaleUpperCase()}
+      {guessedLetters.includes(letter) ? letter.toLocaleUpperCase() : ""}
     </span>
   ));
 
@@ -21,11 +20,12 @@ function App() {
   ));
 
   const addLetterHandler = (letter) => {
-   setGuessedLetters(prevLetters => {
-            return  prevLetters.includes(letter) ? prevLetters: [...prevLetters, letter]
-        })
-    }
-
+    setGuessedLetters((prevLetters) => {
+      return prevLetters.includes(letter)
+        ? prevLetters
+        : [...prevLetters, letter];
+    });
+  };
 
   return (
     <main>
@@ -37,7 +37,11 @@ function App() {
       <section className="life-status-section">{livesStatusElement}</section>
       <section className="current-word">{currentWordElement}</section>
       <section className="keyboard-section">
-        <Keyboard onLetterClick={addLetterHandler} guessedLetters={guessedLetters} currentWord={currentWord} />
+        <Keyboard
+          onLetterClick={addLetterHandler}
+          guessedLetters={guessedLetters}
+          currentWord={currentWord}
+        />
       </section>
       <section className="new-game-btn-section">
         <button>New Game</button>
