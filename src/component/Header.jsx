@@ -1,8 +1,8 @@
-export default function Header() {
+export default function Header(props) {
   return (
     <header>
        <h1>Guess the word</h1>
-                <p>Guess the word within 8 attempts.</p>
+                <p>Guess the word within {props.numberOfHearts} attempts.</p>
     </header>
   );
 }

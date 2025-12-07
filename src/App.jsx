@@ -1,17 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./component/Header";
 import Heart from "./component/Heart";
 import Keyboard from "./component/keyboard";
 
 function App() {
+  // State
   const [currentWord, setCurrentWord] = useState("react");
-
   const [gameStatus, setGameStatus] = useState("win");
   const [guessedLetters, setGuessedLetters] = useState([]);
 
-  const wrongGuessedCount = guessedLetters.filter((letter) =>{
+  // Game config
+  const NUMBER_OF_HEARTS = 9;
+
+  // Derived state
+  const isGameWon = currentWord
+    .split("")
+    .every((letter) => guessedLetters.includes(letter));
+  const wrongGuessedCount = guessedLetters.filter((letter) => {
     return !currentWord.includes(letter);
   }).length;
+  const isGameLost = wrongGuessedCount >= NUMBER_OF_HEARTS;
+  const isGameOver = isGameWon || isGameLost;
 
   const currentWordElement = currentWord.split("").map((letter, index) => (
     <span key={index} className="letter-box">
@@ -19,9 +28,9 @@ function App() {
     </span>
   ));
 
-  const livesStatusElement = Array.from({ length: 9 }).map((_, index) => (
-    <Heart key={index} broken={index < wrongGuessedCount} />
-  ));
+  const livesStatusElement = Array.from({ length: NUMBER_OF_HEARTS }).map(
+    (_, index) => <Heart key={index} broken={index < wrongGuessedCount} />
+  );
 
   const addLetterHandler = (letter) => {
     setGuessedLetters((prevLetters) => {
@@ -33,7 +42,7 @@ function App() {
 
   return (
     <main>
-      <Header />
+      <Header numberOfHearts={NUMBER_OF_HEARTS} />
       <section className="game-status">
         <h3>You Win</h3>
         <p>Good job!</p>
@@ -48,7 +57,7 @@ function App() {
         />
       </section>
       <section className="new-game-btn-section">
-        <button>New Game</button>
+        {isGameOver ? <button>New Game</button> : null}
       </section>
     </main>
   );
