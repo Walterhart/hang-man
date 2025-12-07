@@ -137,3 +137,14 @@ section.new-game-btn-section > button {
     font-size: 1rem;
     font-weight: 500;
 }
+
+div.keyboard > button.wrong {
+    background-color: #8b0000;
+    cursor: not-allowed;
+}
+
+div.keyboard > button.correct {
+    background-color: #16a34a;
+    border: 2px solid #24fe74;
+    cursor: not-allowed;
+}
