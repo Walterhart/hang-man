@@ -127,6 +127,11 @@ span.letter-box {
     background-color: #2b2b2b;
 }
 
+section.current-word > span.letter-box.missed-letter {
+    color: #8b0000;
+    font-weight: 700;
+}
+
 
 section.keyboard-section {
     display: flex;

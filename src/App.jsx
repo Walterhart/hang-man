@@ -4,6 +4,7 @@ import Heart from "./component/Heart";
 import Keyboard from "./component/keyboard";
 import RenderGameStatus from "./component/RenderGameStatus.jsx";
 import { getRandomWord } from "./data/word.js";
+import clsx from "clsx";
 
 function App() {
   // State
@@ -28,11 +29,21 @@ function App() {
   const isLastGuessIncorrect =
     lastGuessedLetter && !currentWord.includes(lastGuessedLetter);
 
-  const currentWordElement = currentWord.split("").map((letter, index) => (
-    <span key={index} className="letter-box">
-      {guessedLetters.includes(letter) ? letter.toLocaleUpperCase() : ""}
-    </span>
-  ));
+  const currentWordElement = currentWord.split("").map((letter, index) => {
+    const letterClassName = clsx(
+      isGameLost && !guessedLetters.includes(letter) && "missed-letter"
+    );
+
+    return (
+      <span key={index} className={`letter-box ${letterClassName}`}>
+        {guessedLetters.includes(letter)
+          ? letter.toLocaleUpperCase()
+          : isGameOver
+          ? letter.toLocaleUpperCase()
+          : ""}
+      </span>
+    );
+  });
 
   const livesStatusElement = Array.from({ length: NUMBER_OF_HEARTS }).map(
     (_, index) => <Heart key={index} broken={index < wrongGuessedCount} />
@@ -44,6 +55,11 @@ function App() {
         ? prevLetters
         : [...prevLetters, letter];
     });
+  };
+
+  const resetGame = () => {
+    setGuessedLetters([]);
+    setCurrentWord(getRandomWord());
   };
 
   return (
@@ -85,7 +101,7 @@ function App() {
         </p>
       </section>
       <section className="new-game-btn-section">
-        {isGameOver ? <button>New Game</button> : null}
+        {isGameOver ? <button onClick={resetGame}>New Game</button> : null}
       </section>
     </main>
   );
