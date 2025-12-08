@@ -177,6 +177,11 @@ section.new-game-btn-section > button {
     font-weight: 500;
 }
 
+div.keyboard > button.key {
+    color: #171717; 
+    font-weight: 600;
+}
+
 div.keyboard > button.wrong {
     background-color: #8b0000;
     cursor: not-allowed;
@@ -187,7 +192,6 @@ div.keyboard > button.correct {
     border: 2px solid #24fe74;
     cursor: not-allowed;
 }
-
 
 section.keyboard > button:disabled {
     cursor: not-allowed;
