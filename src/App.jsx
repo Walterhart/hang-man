@@ -11,6 +11,7 @@ function App() {
   const [currentWord, setCurrentWord] = useState(() => getRandomWord());
   const [guessedLetters, setGuessedLetters] = useState([]);
 
+
   // Game config
   const NUMBER_OF_HEARTS = 9;
 
@@ -45,9 +46,12 @@ function App() {
     );
   });
 
-  const livesStatusElement = Array.from({ length: NUMBER_OF_HEARTS }).map(
-    (_, index) => <Heart key={index} broken={index < wrongGuessedCount} />
-  );
+const livesStatusElement = Array.from({ length: NUMBER_OF_HEARTS }).map((_, index) => {
+  const broken = index < wrongGuessedCount;
+  const justBroken = isLastGuessIncorrect && index === wrongGuessedCount - 1;
+
+  return <Heart key={index} broken={broken} justBroken={justBroken} />;
+});
 
   const addLetterHandler = (letter) => {
     setGuessedLetters((prevLetters) => {
@@ -64,7 +68,7 @@ function App() {
 
   return (
     <main>
-      <Header numberOfHearts={NUMBER_OF_HEARTS} />
+      <Header numberOfHearts={NUMBER_OF_HEARTS}/>
       <RenderGameStatus
         isGameOver={isGameOver}
         isGameWon={isGameWon}

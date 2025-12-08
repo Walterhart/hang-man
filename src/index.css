@@ -205,3 +205,18 @@ section.keyboard > button:disabled {
     white-space: nowrap;
     border: 0;
 }
+
+@keyframes damage-shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes damage-flash {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(2) drop-shadow(0 0 10px #ff0000); }
+}
+
+.heart.taking-damage {
+    animation: damage-shake 0.5s ease-in-out, damage-flash 0.5s ease-in-out;
+}
