@@ -33,7 +33,7 @@ export default function RenderGameStatus(props) {
       return (
         <>
           <h2>The Reaper Claims Another Soul</h2>
-          <p>Your fate is sealed. The darkness consumes you.</p>
+          <p>Your fate is sealed. The darkness consumes you. The word was "{props.currentWord.toUpperCase()} ".</p>
         </>
       );
     }

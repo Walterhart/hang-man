@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import Header from "./component/Header";
 import Heart from "./component/Heart";
 import Keyboard from "./component/keyboard";
-import clsx from "clsx";
 import RenderGameStatus from "./component/RenderGameStatus.jsx";
+import { getRandomWord } from "./data/word.js";
 
 function App() {
   // State
-  const [currentWord, setCurrentWord] = useState("react");
+  const [currentWord, setCurrentWord] = useState(() => getRandomWord());
   const [guessedLetters, setGuessedLetters] = useState([]);
 
   // Game config
@@ -54,6 +54,7 @@ function App() {
         isGameWon={isGameWon}
         isGameLost={isGameLost}
         isLastGuessIncorrect={isLastGuessIncorrect}
+        currentWord={currentWord}
       />
       <section className="life-status-section">{livesStatusElement}</section>
       <section className="current-word">{currentWordElement}</section>
