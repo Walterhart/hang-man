@@ -19,6 +19,8 @@ export default function Keyboard(props) {
         key={letter}
         className={className}
         disabled={isGuessed || props.isGameOver}
+        aria-disabled={props.guessedLetters.includes(letter) || props.isGameOver}
+        aria-label={`Letter ${letter}`}
         onClick={() => props.onLetterClick(letter)}
       >
         {letter.toUpperCase()}

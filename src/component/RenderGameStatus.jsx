@@ -40,5 +40,5 @@ export default function RenderGameStatus(props) {
 
     return;
   };
-  return <section className={className}>{renderMessage()}</section>;
+  return <section className={className} aria-live="polite" role="status">{renderMessage()}</section>;
 }
