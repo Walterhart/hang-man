@@ -91,7 +91,7 @@ const livesStatusElement = Array.from({ length: NUMBER_OF_HEARTS }).map((_, inde
             (currentWord.includes(lastGuessedLetter)
               ? `Correct! The letter ${lastGuessedLetter} is in the word.`
               : `Sorry, the letter ${lastGuessedLetter} is not in the word.`)}
-          {!isGameOver && ` You have ${numGuessesLeft} attempts left.`}
+          {!isGameOver && ` You have ${numGuessesLeft} guesses left.`}
         </p>
         <p>
           Current word:{" "}
