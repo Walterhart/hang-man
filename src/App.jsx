@@ -16,7 +16,6 @@ function App() {
   const NUMBER_OF_HEARTS = 9;
 
   // Derived state
-
   const isGameWon = currentWord
     .split("")
     .every((letter) => guessedLetters.includes(letter));
